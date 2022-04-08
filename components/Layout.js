@@ -15,7 +15,7 @@ export function Layout({ children, title = "This is the default title" }) {
       <div className="min-h-[100vh]  relative bg-black">
         <div className="h-full main">{children}</div>
         <div className="absolute bottom-0 p-3 text-white bg-black w-[100%] text-center">
-          Made by Aniket and Anchal, UDAAN'22
+          Made by Aniket and Anchal, UDAAN22
         </div>
       </div>
     </>
