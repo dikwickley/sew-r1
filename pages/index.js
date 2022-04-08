@@ -57,14 +57,14 @@ export default function Home() {
   return (
     <Layout title={"Home"}>
       <div className="relative flex flex-col font-mono text-2xl  text-white bg-gradient-to-br from-pink-400 via-red-500  to-red-900  min-h-[100vh]  items-center pt-32">
-        <div className="mt-20 mb-6 font-extrabold text-green-400 text-9xl ">
-          movie hub 🎥
+        <div className="mt-20 font-sans text-4xl font-extrabold text-blue-800 md-1 md:mb-6 md:text-9xl ">
+          MovieHub 🎥
         </div>
         <div className="mt-20 mb-6 text-2xl">Search for any movie</div>
-        <div className="flex flex-row items-center mb-10 ">
+        <div className="flex flex-col items-center mb-10 md:flex-row ">
           <input
             type="text"
-            className="text-black w-[400px] outline-none border-none px-4 py-2 font-mono text-4xl mr-2 h-[50px]"
+            className="text-black w-[100] m-3 md:w-[400px] outline-none border-none px-4 py-2 font-mono text-2xl md:text-4xl mr-2 h-[50px]"
             onChange={(e) => {
               setSearch(e.target.value);
             }}

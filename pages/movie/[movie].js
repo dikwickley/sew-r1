@@ -49,33 +49,31 @@ export default function Movie({ movie, data, similarMovies }) {
   }, []);
   return (
     <Layout title={data?.title}>
-      <div className="w-[90%] flex flex-col justify-center  mx-auto text-white">
-        <div className="flex flex-col items-center justify-center">
-          <div className="flex flex-row p-20 ">
-            <Image
-              width={800}
-              height={600}
-              alt="img"
-              src={`http://image.tmdb.org/t/p/w500${data?.backdrop_path}`}
-              className=" w-[800px]"
-            />
-            <div className="mx-4 text-6xl font-thin w-[50%]">
-              {data?.title} | {new Date(data?.release_date).getFullYear()}
-              <div className="text-base">{data?.tagline}</div>
-              <div className="flex">
-                {data?.genres.map((item, index) => {
-                  return <Genre name={item.name} key={index} />;
-                })}
-                {/* <Genre name={"Horror"} />
+      <div className="w-[100%] md:w-[90%] flex flex-col justify-center  mx-auto text-white">
+        <div className="flex flex-col md:p-20 md:flex-row">
+          <Image
+            width={800}
+            height={600}
+            alt="img"
+            src={`http://image.tmdb.org/t/p/w500${data?.backdrop_path}`}
+            className=" w-[800px]"
+          />
+          <div className="mx-4 text-3xl flex-wrap md:text-6xl font-thin md:w-[50%] w-[100%] px-3">
+            {data?.title} | {new Date(data?.release_date).getFullYear()}
+            <div className="text-base">{data?.tagline}</div>
+            <div className="flex">
+              {data?.genres.map((item, index) => {
+                return <Genre name={item.name} key={index} />;
+              })}
+              {/* <Genre name={"Horror"} />
                 <Genre name={"Horror"} />
                 <Genre name={"Horror"} /> */}
-              </div>
-              <div className="text-2xl">{data?.overview}</div>
             </div>
+            <div className="text-base md:text-2xl">{data?.overview}</div>
           </div>
         </div>
-        <div className="flex flex-row justify-end p-20">
-          <div className="flex flex-row flex-wrap w-[60%] justify-end text-white">
+        <div className="flex flex-col justify-end p-20 md:flex-row">
+          <div className="flex flex-row flex-wrap w-[100%] md:w-[60%] justify-end text-white">
             <InfoBox
               info={"Country"}
               data={data?.production_countries[0]?.name}
