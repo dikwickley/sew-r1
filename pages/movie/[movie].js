@@ -81,7 +81,7 @@ export default function ({ movie, data, similarMovies }) {
           <div className="font-sans text-4xl">Production Companies</div>
           {data.production_companies.map((item, index) => {
             return (
-              <div className="font-thin text-3xl w-[200px] m-10">
+              <div key={index} className="font-thin text-3xl w-[200px] m-10">
                 {item.name}
               </div>
             );
@@ -92,6 +92,7 @@ export default function ({ movie, data, similarMovies }) {
           {similarMovies.slice(0, 5).map((item, index) => {
             return (
               <ThumbNail
+                key={index}
                 name={item.title}
                 img={item.poster_path}
                 id={item.id}

@@ -49,14 +49,21 @@ export default function Home() {
   return (
     <Layout title={"Home"}>
       <div className="relative flex flex-col font-mono text-2xl  text-white bg-gradient-to-br from-pink-400 via-red-500  to-red-900  min-h-[100vh]  items-center">
+        <div className="mt-20 mb-6 font-extrabold text-green-400 text-9xl ">
+          movie hub 🎥
+        </div>
         <div className="mt-20 mb-6 text-2xl">Search for any movie</div>
         <div className="flex flex-row items-center mb-10 ">
           <input
             type="text"
             className="text-black w-[400px] outline-none border-none px-4 py-2 font-mono text-4xl mr-2 h-[50px]"
             onChange={(e) => {
-              if (e.keyCode !== 13) setSearch(e.target.value);
-              else handleSearch();
+              setSearch(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
             }}
           />
           <button
@@ -73,6 +80,7 @@ export default function Home() {
             {movies.map((item, index) => {
               return (
                 <ThumbNail
+                  key={index}
                   name={item.title}
                   img={item.poster_path}
                   id={item.id}
