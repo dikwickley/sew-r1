@@ -1,147 +1,87 @@
+import axios from "axios";
+import { useState } from "react";
 import { Layout } from "../components/Layout";
+import Link from "next/link";
 
-const InfoBox = ({ info, data }) => {
+const ThumbNail = ({ img, name, id }) => {
   return (
-    <div className="w-[300px] flex flex-col items-center p-4 text-center">
-      <span className="text-2xl">{info} </span>
-      <span className="text-sm font-semibold">{data}</span>
-    </div>
-  );
-};
-
-const Epbox = ({ title, data }) => {
-  return (
-    <div className="p-3 flex flex-col font-thin">
-      <div className="text-4xl font-serif">{title}</div> {data}
+    <div className="flex flex-col items-center justify-center font-sans text-lg leading-snug text-center font-semibold  w-[170px] m-5 self-start">
+      <Link href={`/movie/${id}`}>
+        <img
+          className="w-[100%] cursor-pointer"
+          src={`http://image.tmdb.org/t/p/w500${img}`}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = "/error.jpeg";
+          }}
+        />
+      </Link>
+      <div>{name}</div>
     </div>
   );
 };
 
 export default function Home() {
+  const [search, setSearch] = useState("random");
+  const [movies, setMovies] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = async () => {
+    setLoading(true);
+    const data = await axios
+      .get(
+        `https://api.themoviedb.org/3/search/movie?api_key=${"7c8aaaa8252e8127b6b1c93b1f2c9183"}&query=${search}`
+      )
+      .then((data) => {
+        setLoading(false);
+        return data.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        setMovies(false);
+        setLoading(false);
+      });
+
+    console.log(data);
+    setMovies(data.results);
+  };
+
   return (
-    <Layout title={"Lucifer"}>
-      <div className="flex flex-col justify-center items-center bg text-white">
-        <div>
-          <img src={"/bg.jpg"} className=" w-[100vw]" />
+    <Layout title={"Home"}>
+      <div className="relative flex flex-col font-mono text-2xl  text-white bg-gradient-to-br from-pink-400 via-red-500  to-red-900  min-h-[100vh]  items-center">
+        <div className="mt-20 mb-6 text-2xl">Search for any movie</div>
+        <div className="flex flex-row items-center mb-10 ">
+          <input
+            type="text"
+            className="text-black w-[400px] outline-none border-none px-4 py-2 font-mono text-4xl mr-2 h-[50px]"
+            onChange={(e) => {
+              if (e.keyCode !== 13) setSearch(e.target.value);
+              else handleSearch();
+            }}
+          />
+          <button
+            className="h-[50px] bg-green-500 w-[100px]  text-4xl font-extrabold flex justify-center items-center"
+            onClick={() => {
+              handleSearch();
+            }}
+          >
+            Go
+          </button>
         </div>
-
-        <div className="flex flex-row">
-          <div className="p-4">Rotten Tomatoes :88%</div>
-          <div className="p-4">IMDb :8.2/10</div>
-          <div className="p-4">Ratings Graph :8.5/10</div>
-        </div>
-        <div className="flex flex-row">
-          <div className="text-center p-10 text-5xl">
-            Seasons <br /> <span className="text-9xl">6</span>
+        {movies !== null && loading !== true && (
+          <div className="w-[80%] flex flex-row flex-wrap justify-center mb-28 mt-10">
+            {movies.map((item, index) => {
+              return (
+                <ThumbNail
+                  name={item.title}
+                  img={item.poster_path}
+                  id={item.id}
+                />
+              );
+            })}
           </div>
-
-          <div className="flex flex-row w-[70%] flex-wrap justify-center items-center">
-            <InfoBox
-              info={"Genre"}
-              data={
-                "Mystery Occult detective fiction Urban fantasy Police procedural Comedy drama"
-              }
-            />
-            <InfoBox info={"Release Data"} data={"January 25, 2016 "} />
-            <InfoBox
-              info={"Original Network"}
-              data={"Fox (seasons 1-3)  Netflix (seasons 4-6)"}
-            />
-            <InfoBox
-              info={"Editors"}
-              data={`	
-              Marc Pattavina
-              Ray Daniels III
-              Fred Peterson
-              Hector Carrillo
-              Matt Coleshill
-              Jill D'Agnenica`}
-            />
-            <InfoBox
-              info={"Producers"}
-              data={`
-              Alex Katsnelson
-              Michael Azzolino
-              Erik Holmberg
-              Karen Gaviola`}
-            />
-            <InfoBox
-              info={"Cinematography"}
-              data={`Glen Keenan
-              Ryan McMaster
-              Tico Poulakakis
-              Stefan von Bjorn
-              Barry Donlevy
-              Christian Sebaldt`}
-            />
-            <InfoBox
-              info={"Production locations"}
-              data={`	
-              Vancouver, British Columbia 
-              Los Angeles, California `}
-            />
-          </div>
-          <div className="text-center p-10 text-5xl">
-            Episodes <br /> <span className="text-9xl">93</span>
-          </div>
-        </div>
-        <div>
-          <div className="text-7xl my-20 self-start">Episodes</div>
-          <div className="flex flex-col w-[70%] mb-20">
-            <Epbox
-              title={"1. Pilot"}
-              data={`After leaving hell, Lucifer Morningstar seeks a more exciting life in Los Angeles; when a murder connects Lucifer to Detective Chloe Decker, he becomes interested in the idea of punishing criminals.`}
-            />
-            <Epbox
-              title={"2. Lucifer, Stay. Good Devil"}
-              data={`Lucifer helps Chloe investigate when a movie star's son is killed after being pursued by the paparazzi; Maze and Amenadiel try to persuade Lucifer to come back to hell.`}
-            />
-            <Epbox
-              title={"3. The Would-Be Prince of Darkness"}
-              data={`An up-and-coming quarterback calls Lucifer after finding a corpse in his pool; Lucifer asks Chloe to help investigate, which leads them into the world of big-money sports.`}
-            />
-            <Epbox
-              title={"4. Manly Whatnots"}
-              data={`Lucifer decides he must seduce Chloe to get over his infatuation with her; a girl goes missing; Amenadiel and Maze discuss Lucifer.`}
-            />
-            <Epbox
-              title={"5. Sweet Kicks"}
-              data={`Lucifer wants Chloe to investigate a shooting at a fashion show, which resulted in a young woman's death; Amenadiel targets Dr. Linda Martin.`}
-            />
-            <Epbox
-              title={"6. Favorite Son"}
-              data={`When Lucifer bails on a murder investigation that bores him, he must persuade Chloe to let him back on the case after realizing that something very personal to him was stolen during the crime.`}
-            />
-            <Epbox
-              title={"7. Wingman"}
-              data={`Lucifer gets help from an unlikely source while trying to find the contents of his stolen container; Chloe uncovers a vital clue.`}
-            />
-            <Epbox
-              title={"8. Et Tu, Doctor?"}
-              data={`The murder of a therapist prompts Lucifer and Chloe to enlist the help of Dr. Linda in their search for a suspect; Chloe is confronted by Malcolm about the night he was shot; Lucifer becomes jealous.`}
-            />
-            <Epbox
-              title={"9. A Priest Walks into a Bar"}
-              data={`A priest turns to Lucifer for help when he believes a drug operation has set up shop at a youth center in the neighborhood; Malcolm finds a way to watch Dan.`}
-            />
-            <Epbox
-              title={"10. Pops"}
-              data={`Lucifer and Chloe suspect a restaurateur's son played a part in his death; the return of Chloe's mother sends her life into upheaval.`}
-            />
-            <Epbox
-              title={"11. St. Lucifer"}
-              data={`After a philanthropist is found dead, Lucifer explores his better nature by becoming a benefactor for Tim's charity.`}
-            />
-            <Epbox
-              title={"12. TeamLucifer"}
-              data={`The investigation into the death of a woman whose body was left on the Hollywood Walk of Fame and twisted into the shape of a pentagram leads the team into the world of Satanists, where their preconceived notions are challenged.`}
-            />
-            <Epbox
-              title={"13. Take Me Back to Hell"}
-              data={`When Lucifer is framed for murder, he and Chloe team up to clear his name and identify the real killer.`}
-            />
-          </div>
-        </div>
+        )}
+        {loading && <div>LOADING</div>}
       </div>
     </Layout>
   );
