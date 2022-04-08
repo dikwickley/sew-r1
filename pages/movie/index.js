@@ -1,5 +1,5 @@
 import { Layout } from "../../components/Layout";
-
+import Image from "next/image";
 const InfoBox = ({ info, data }) => {
   return (
     <div className="w-[300px] flex flex-col items-center p-4 text-center">
@@ -22,7 +22,7 @@ export default function Movie() {
     <Layout title={"Lucifer"}>
       <div className="flex flex-col items-center justify-center text-white bg">
         <div>
-          <img src={"/bg.jpg"} className=" w-[100vw]" />
+          <Image alt="img" src={"/bg.jpg"} className=" w-[100vw]" />
         </div>
 
         <div className="flex flex-row">

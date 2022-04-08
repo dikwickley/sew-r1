@@ -2,12 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import { Layout } from "../components/Layout";
 import Link from "next/link";
+import Image from "next/image";
 
 const ThumbNail = ({ img, name, id }) => {
   return (
     <div className="flex flex-col items-center justify-center font-sans text-lg leading-snug text-center font-semibold  w-[170px] m-5 self-start">
       <Link href={`/movie/${id}`}>
-        <img
+        <Image
+          alt="img"
           className="w-[100%] cursor-pointer"
           src={`http://image.tmdb.org/t/p/w500${img}`}
           onError={({ currentTarget }) => {

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Layout } from "../../components/Layout";
 import Link from "next/link";
+import Image from "next/image";
 
 const InfoBox = ({ info, data }) => {
   return (
@@ -17,7 +18,8 @@ const ThumbNail = ({ img, name, id }) => {
   return (
     <div className="flex flex-col items-center justify-center font-sans text-lg leading-snug text-center font-semibold  w-[170px] m-5 self-start">
       <Link href={`/movie/${id}`}>
-        <img
+        <Image
+          alt="img"
           className="w-[100%] cursor-pointer"
           src={`http://image.tmdb.org/t/p/w500${img}`}
           onError={({ currentTarget }) => {
@@ -40,7 +42,8 @@ export default function ({ movie, data, similarMovies }) {
       <div className="w-[90%] flex flex-col justify-center  mx-auto text-white">
         <div className="flex flex-col items-center justify-center ">
           <div className="flex flex-row p-20 ">
-            <img
+            <Image
+              alt="img"
               src={`http://image.tmdb.org/t/p/w500${data.backdrop_path}`}
               className=" w-[800px]"
             />
@@ -71,7 +74,8 @@ export default function ({ movie, data, similarMovies }) {
             <InfoBox info={"Votes"} data={data.vote_count} />
           </div>
           <div>
-            <img
+            <Image
+              alt="img"
               src={`http://image.tmdb.org/t/p/w500${data.poster_path}`}
               className=" w-[300px] self-end"
             />
