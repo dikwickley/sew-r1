@@ -1,4 +1,3 @@
-import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
@@ -48,7 +47,7 @@ export const Nav = () => {
           </Link>
         </li>
       </ul>
-      <div className="flex flex-row hidden search">
+      <div className="flex-row hidden search">
         <input
           type="text"
           className="text-black w-[400px] outline-none border-none px-4 py-2 font-mono text-2xl mr-2 h-[35px]"
