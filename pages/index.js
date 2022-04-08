@@ -9,6 +9,8 @@ const ThumbNail = ({ img, name, id }) => {
     <div className="flex flex-col items-center justify-center font-sans text-lg leading-snug text-center font-semibold  w-[170px] m-5 self-start">
       <Link href={`/movie/${id}`}>
         <Image
+          width={170}
+          height={250}
           alt="img"
           className="w-[100%] cursor-pointer"
           src={`http://image.tmdb.org/t/p/w500${img}`}

@@ -19,6 +19,8 @@ const ThumbNail = ({ img, name, id }) => {
     <div className="flex flex-col items-center justify-center font-sans text-lg leading-snug text-center font-semibold  w-[170px] m-5 self-start">
       <Link href={`/movie/${id}`}>
         <Image
+          width={170}
+          height={250}
           alt="img"
           className="w-[100%] cursor-pointer"
           src={`http://image.tmdb.org/t/p/w500${img}`}
@@ -43,6 +45,8 @@ export default function ({ movie, data, similarMovies }) {
         <div className="flex flex-col items-center justify-center ">
           <div className="flex flex-row p-20 ">
             <Image
+              width={800}
+              height={600}
               alt="img"
               src={`http://image.tmdb.org/t/p/w500${data.backdrop_path}`}
               className=" w-[800px]"
@@ -75,6 +79,8 @@ export default function ({ movie, data, similarMovies }) {
           </div>
           <div>
             <Image
+              width={340}
+              height={500}
               alt="img"
               src={`http://image.tmdb.org/t/p/w500${data.poster_path}`}
               className=" w-[300px] self-end"
