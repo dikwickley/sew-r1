@@ -29,7 +29,7 @@ a {
 .navbar li {
   float: left;
   list-style: none;
-  margin: 30px 20px;
+  margin: 20px 20px;
 }
 .navbar li a {
   padding: 3px 3px;
@@ -38,7 +38,8 @@ a {
 }
 .navbar li a:hover {
   /* color: yellow; */
-  text-decoration: underline;
+  color: red;
+  /* text-decoration: underline; */
 }
 .search {
   float: right;
@@ -47,7 +48,6 @@ a {
 }
 .navbar input {
   /* border: 2px solid yellow; */
-  border-radius: 14px;
   padding: 12px 14px;
   /* width: 129px; */
 }

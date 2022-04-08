@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const ThumbNail = ({ img, name, id }) => {
   return (
-    <div className="flex flex-col items-center justify-center font-sans text-lg leading-snug text-center font-semibold  w-[170px] m-5 self-start">
+    <div className="flex flex-col items-center justify-center font-sans text-lg leading-snug text-center font-semibold  w-[170px] m-5 self-start ">
       <Link href={`/movie/${id}`}>
         <Image
           width={170}
@@ -31,6 +31,10 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
+    if (search === "") {
+      alert("Choose a movie");
+    }
+
     setLoading(true);
     const data = await axios
       .get(
@@ -52,7 +56,7 @@ export default function Home() {
 
   return (
     <Layout title={"Home"}>
-      <div className="relative flex flex-col font-mono text-2xl  text-white bg-gradient-to-br from-pink-400 via-red-500  to-red-900  min-h-[100vh]  items-center">
+      <div className="relative flex flex-col font-mono text-2xl  text-white bg-gradient-to-br from-pink-400 via-red-500  to-red-900  min-h-[100vh]  items-center pt-32">
         <div className="mt-20 mb-6 font-extrabold text-green-400 text-9xl ">
           movie hub 🎥
         </div>

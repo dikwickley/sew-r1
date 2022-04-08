@@ -14,6 +14,14 @@ const InfoBox = ({ info, data }) => {
   );
 };
 
+const Genre = ({ name }) => {
+  return (
+    <div className="px-3 m-2 ml-0 text-base font-bold text-black bg-white rounded-sm p-y-1">
+      {name}
+    </div>
+  );
+};
+
 const ThumbNail = ({ img, name, id }) => {
   return (
     <div className="flex flex-col items-center justify-center font-sans text-lg leading-snug text-center font-semibold  w-[170px] m-5 self-start">
@@ -35,26 +43,34 @@ const ThumbNail = ({ img, name, id }) => {
   );
 };
 
-export default function ({ movie, data, similarMovies }) {
+export default function Movie({ movie, data, similarMovies }) {
   useState(() => {
     console.log(data);
   }, []);
   return (
-    <Layout title={data.title}>
+    <Layout title={data?.title}>
       <div className="w-[90%] flex flex-col justify-center  mx-auto text-white">
-        <div className="flex flex-col items-center justify-center ">
+        <div className="flex flex-col items-center justify-center">
           <div className="flex flex-row p-20 ">
             <Image
               width={800}
               height={600}
               alt="img"
-              src={`http://image.tmdb.org/t/p/w500${data.backdrop_path}`}
+              src={`http://image.tmdb.org/t/p/w500${data?.backdrop_path}`}
               className=" w-[800px]"
             />
             <div className="mx-4 text-6xl font-thin w-[50%]">
-              {data.title} | {new Date(data.release_date).getFullYear()}
-              <div className="text-base">{data.tagline}</div>
-              <div className="text-2xl">{data.overview}</div>
+              {data?.title} | {new Date(data?.release_date).getFullYear()}
+              <div className="text-base">{data?.tagline}</div>
+              <div className="flex">
+                {data?.genres.map((item, index) => {
+                  return <Genre name={item.name} key={index} />;
+                })}
+                {/* <Genre name={"Horror"} />
+                <Genre name={"Horror"} />
+                <Genre name={"Horror"} /> */}
+              </div>
+              <div className="text-2xl">{data?.overview}</div>
             </div>
           </div>
         </div>
@@ -62,34 +78,34 @@ export default function ({ movie, data, similarMovies }) {
           <div className="flex flex-row flex-wrap w-[60%] justify-end text-white">
             <InfoBox
               info={"Country"}
-              data={data.production_countries[0].name}
+              data={data?.production_countries[0]?.name}
             />
             <InfoBox
               info={"Release Date"}
-              data={new Date(data.release_date).toDateString()}
+              data={new Date(data?.release_date).toDateString()}
             />
-            <InfoBox info={"Revenue"} data={`$${data.revenue}`} />
-            <InfoBox info={"Language"} data={data.spoken_languages[0].name} />
-            <InfoBox info={"Popularity"} data={data.popularity} />
+            <InfoBox info={"Revenue"} data={`$${data?.revenue}`} />
+            <InfoBox info={"Language"} data={data?.spoken_languages[0]?.name} />
+            <InfoBox info={"Popularity"} data={data?.popularity} />
 
-            <InfoBox info={"Runtime"} data={`${data.runtime} mins`} />
-            <InfoBox info={"Status"} data={data.status} />
-            <InfoBox info={"18+"} data={data.adult ? "Yes" : "No"} />
-            <InfoBox info={"Votes"} data={data.vote_count} />
+            <InfoBox info={"Runtime"} data={`${data?.runtime} mins`} />
+            <InfoBox info={"Status"} data={data?.status} />
+            <InfoBox info={"18+"} data={data?.adult ? "Yes" : "No"} />
+            <InfoBox info={"Votes"} data={data?.vote_count} />
           </div>
           <div>
             <Image
               width={340}
               height={500}
               alt="img"
-              src={`http://image.tmdb.org/t/p/w500${data.poster_path}`}
+              src={`http://image.tmdb.org/t/p/w500${data?.poster_path}`}
               className=" w-[300px] self-end"
             />
           </div>
         </div>
         <div className="flex flex-row flex-wrap items-center justify-center mb-48">
           <div className="font-sans text-4xl">Production Companies</div>
-          {data.production_companies.map((item, index) => {
+          {data?.production_companies.map((item, index) => {
             return (
               <div key={index} className="font-thin text-3xl w-[200px] m-10">
                 {item.name}
@@ -139,8 +155,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       movie: movie,
-      data: data.data,
-      similarMovies: similarMovies.data.results,
+      data: data?.data,
+      similarMovies: similarMovies.data?.results,
     }, // will be passed to the page component as props
   };
 }
