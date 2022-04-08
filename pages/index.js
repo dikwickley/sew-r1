@@ -22,7 +22,7 @@ const ThumbNail = ({ img, name, id }) => {
 };
 
 export default function Home() {
-  const [search, setSearch] = useState("random");
+  const [search, setSearch] = useState("dog");
   const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(false);
 
