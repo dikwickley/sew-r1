@@ -1,6 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 export const Nav = () => {
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState(null);
@@ -32,19 +33,19 @@ export const Nav = () => {
     <nav className="flex items-center justify-between navbar">
       <ul className="flex items-center justify-center text-xl">
         <li className="p-3 text-xl bg-white rounded-full cursor-pointer">
-          <a href="/" className="hover:font-extrabold">
+          <Link href="/" className="hover:font-extrabold">
             🎥
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/" className="hover:font-extrabold">
+          <Link href="/" className="hover:font-extrabold">
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/" className="hover:font-extrabold">
+          <Link href="/" className="hover:font-extrabold">
             About
-          </a>
+          </Link>
         </li>
       </ul>
       <div className="flex flex-row hidden search">
